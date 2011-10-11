@@ -144,7 +144,7 @@ http.createServer(function (req, res) {
                 /*compress = compress.replace(/"/g,'&quot;');
                 compress = compress.replace(/'/g,'\'');*/
             }
-            res.end([top,'<form action="/" method="POST"><input name="author" type="text" />'
+            res.end([top,'<form action="/" method="POST">Author: <input name="author" type="text" />'
                 ,'&nbsp;&nbsp;<input type="submit" /><br/>'
                 ,'<textarea cols="100" rows="20" name="content">'
                 ,'/* ',author||'nobody'
@@ -154,7 +154,7 @@ http.createServer(function (req, res) {
         });
     }
     else{
-        res.end([top,'<form action="/" method="POST"><input name="author" type="text" />'
+        res.end([top,'<form action="/" method="POST">Author: <input name="author" type="text" />'
             ,'&nbsp;&nbsp;<input type="submit" /><br/>'
             ,'<textarea cols="100" rows="20" name="content"></textarea></form>',bottom].join(''));
     }
