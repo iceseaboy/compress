@@ -118,7 +118,7 @@ http.createServer(function (req, res) {
         'Content-type' : 'text/html'
         ,'Content-Encoding' : 'UTF-8'
     });
-    var top = '<!doctype html><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><html><head><title>UglifyJS online</title></head><body>';
+    var top = '<!doctype html><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><html><head><title>UglifyJS JavaScript online</title></head><body><h1> since 2011.10.08, http://marijnhaverbeke.nl/uglifyjs cannot be visited, this is for you, who wants to use uglifyjs online.thank you</h1><h4>contact me: iceseaboy#gmail.com</h4>';
     var bottom = '</body></html>';
     if (req.method == 'POST') {
         post_handler(req ,function(POST){
@@ -132,7 +132,7 @@ http.createServer(function (req, res) {
                     sys.debug(ex.stack);
                     sys.debug(sys.inspect(ex));
                     sys.debug(JSON.stringify(ex));
-                    res.end([top,'<form action="/" method="POST"><input name="author" type="text" />'
+                    res.end([top,'<form action="/" method="POST">Author: <input name="author" type="text" />'
                         ,'&nbsp;&nbsp;<input type="submit" /><br/>'
                         ,'<textarea cols="100" rows="20" name="content">'
                         ,ex.stack,JSON.stringify(ex)
