@@ -118,8 +118,17 @@ http.createServer(function (req, res) {
         'Content-type' : 'text/html'
         ,'Content-Encoding' : 'UTF-8'
     });
-    var top = '<!doctype html><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><html><head><title>UglifyJS JavaScript online</title></head><body><script src="http://code.jquery.com/jquery-1.6.2.min.js"></script><h1> since 2011.10.08, http://marijnhaverbeke.nl/uglifyjs cannot be visited, this is for you, who wants to use uglifyjs online.thank you</h1><h4>contact me: iceseaboy#gmail.com</h4>';
-    var bottom = '</body></html>';
+    var top = ['<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
+        ,'<html xmlns="http://www.w3.org/1999/xhtml">'
+        ,'<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'
+        ,'<html><head><title>UglifyJS JavaScript online</title></head><body>'
+        ,'<script src="http://tv.sohu.com/upload/jq_plugin/j.js"></script>'
+        //,'<h1> since 2011.10.08, http://marijnhaverbeke.nl/uglifyjs cannot be visited, this is for you, who wants to use uglifyjs online.thank you</h1><h4>contact me: iceseaboy#gmail.com</h4>'
+        ,'<form id="sbForm" action="/" method="POST">Author: <input id="author" name="author" type="text" />&nbsp;&nbsp;<input type="submit" /><br/>'
+        ,'<textarea cols="100" rows="20" id="content" name="content"></textarea></form>'
+        ].join('');
+    var bottom = ['<script>$("#author").val($.cookie("author")||""),$("#content").val($("#hiddenCompress").val()),$("#sbForm").submit(function(){var a=new Date;$.cookie("author",$("#author").val()||"",{expire:a.setYear(a.getYear()+100).toString()})})</script>'
+    ,'</body></html>'].join('');
     if (req.method == 'POST') {
         post_handler(req ,function(POST){
             var compress = POST.content;
@@ -127,36 +136,28 @@ http.createServer(function (req, res) {
             if(compress){
                 try{
                     compress = squeeze_it(compress);
+                    //sys.debug(compress);
                 } catch(ex) {
                     sys.debug('server: ');
                     sys.debug(ex.stack);
                     sys.debug(sys.inspect(ex));
                     sys.debug(JSON.stringify(ex));
-                    res.end([top,'<form action="/" method="POST">Author: <input name="author" type="text" />'
-                        ,'&nbsp;&nbsp;<input type="submit" /><br/>'
-                        ,'<textarea cols="100" rows="20" name="content">'
-                        ,ex.stack,JSON.stringify(ex)
-                        ,'</textarea></form>',bottom].join(''));
+                    res.end([top,'<input id="hiddenCompress" type="hidden" value="',ex.stack,JSON.stringify(ex),'" />',bottom].join(''));
                 }
                 compress = compress.replace(/</g,'&lt;');
                 compress = compress.replace(/>/g,'&gt;');
+                compress = compress.replace(/"/g,'&quot;');
+                compress = compress.replace(/'/g,'\'');
+                compress = compress.replace(/&nbsp;/g,'&amp;nbsp;');
                 //compress = compress.replace(/\\u005C/,'\\');
-                /*compress = compress.replace(/"/g,'&quot;');
-                compress = compress.replace(/'/g,'\'');*/
             }
-            res.end([top,'<form action="/" method="POST">Author: <input name="author" type="text" />'
-                ,'&nbsp;&nbsp;<input type="submit" /><br/>'
-                ,'<textarea cols="100" rows="20" name="content">'
-                ,'/* ',author||'nobody'
-                ,' : ',new Date().toString(),' */\r\n'
-                ,compress
-                ,'</textarea></form>',bottom].join(''));
+            compress =  ['/* ', author||'nobody' ,' : ',new Date().toString(),' */\r\n'
+                        ,compress].join('');
+            res.end([top,'<input id="hiddenCompress" type="hidden" value="',compress,'" />',bottom].join(''));
         });
     }
     else{
-        res.end([top,'<form action="/" method="POST">Author: <input name="author" type="text" />'
-            ,'&nbsp;&nbsp;<input type="submit" /><br/>'
-            ,'<textarea cols="100" rows="20" name="content"></textarea></form>',bottom].join(''));
+        res.end([top,bottom].join(''));
     }
 }).listen(8080);
 
