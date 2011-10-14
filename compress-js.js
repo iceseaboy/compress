@@ -118,7 +118,7 @@ http.createServer(function (req, res) {
         'Content-type' : 'text/html'
         ,'Content-Encoding' : 'UTF-8'
     });
-    var top = '<!doctype html><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><html><head><title>UglifyJS JavaScript online</title></head><body><h1> since 2011.10.08, http://marijnhaverbeke.nl/uglifyjs cannot be visited, this is for you, who wants to use uglifyjs online.thank you</h1><h4>contact me: iceseaboy#gmail.com</h4>';
+    var top = '<!doctype html><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><html><head><title>UglifyJS JavaScript online</title></head><body><script src="http://code.jquery.com/jquery-1.6.2.min.js"></script><h1> since 2011.10.08, http://marijnhaverbeke.nl/uglifyjs cannot be visited, this is for you, who wants to use uglifyjs online.thank you</h1><h4>contact me: iceseaboy#gmail.com</h4>';
     var bottom = '</body></html>';
     if (req.method == 'POST') {
         post_handler(req ,function(POST){
