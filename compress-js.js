@@ -127,7 +127,7 @@ http.createServer(function (req, res) {
         ,'<form id="sbForm" action="/" method="POST">Author: <input id="author" name="author" type="text" />&nbsp;&nbsp;<input type="submit" /><br/>'
         ,'<textarea cols="100" rows="20" id="content" name="content"></textarea></form>'
         ].join('');
-    var bottom = ['<script>$("#author").val($.cookie("author")||""),$("#content").val($("#hiddenCompress").val()),$("#sbForm").submit(function(){var a=new Date;$.cookie("author",$("#author").val()||"",{expire:a.setYear(a.getYear()+100).toString()})})</script>'
+    var bottom = ['<script>$("#author").val($.cookie("author")||""),$("#content").val($("#hiddenCompress").val()),$("#sbForm").submit(function(){var a=new Date;$.cookie("author",$("#author").val()||"",{expires:a.setYear(a.getYear()+100).toString()})})</script>'
     ,'</body></html>'].join('');
     if (req.method == 'POST') {
         post_handler(req ,function(POST){
